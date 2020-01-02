@@ -5,12 +5,12 @@
  * @copyright Mangalam Research Center for Buddhist Languages
  */
 
-import { ValidationError } from "../errors";
-import { Events } from "../events";
-import { NameResolver } from "../name_resolver";
-import { Define } from "./define";
-import { Element } from "./element";
-import { RefWalker } from "./ref";
+import {ValidationError} from "../errors";
+import {Events} from "../events";
+import {NameResolver} from "../name_resolver";
+import {Define} from "./define";
+import {Element} from "./element";
+import {RefWalker} from "./ref";
 
 // XML validation against a schema could work without any lookahead if it were
 // not for namespaces. However, namespace support means that the interpretation
@@ -63,12 +63,13 @@ import { RefWalker } from "./ref";
 
 export type EventSet = Set<Events>;
 
-export type FireEventResult = false | undefined | readonly ValidationError[];
+export type FireEventResult = false | undefined | ValidationError[];
 
 export class InternalFireEventResult {
   constructor(readonly matched: boolean,
-              readonly errors?: ReadonlyArray<ValidationError>,
-              readonly refs?: ReadonlyArray<RefWalker>) {}
+              readonly errors?: ValidationError[],
+              readonly refs?: RefWalker[]) {
+  }
 
   static fromEndResult(result: EndResult): InternalFireEventResult {
     return (result === false) ?
